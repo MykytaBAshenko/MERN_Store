@@ -1,2 +1,3 @@
-MERN_Store
-Run on [a link](https://gunstashop.herokuapp.com/)
+MERN_Store  
+Run on  
+[gunstashop.herokuapp.com](https://gunstashop.herokuapp.com/)
