@@ -9,7 +9,7 @@ Store on MongoDB Express React and Node
 >**4. goods filtering**  
 >**5. cart contol**  
 >**6. commenting on goods**
-
+ 
 ### What needfor runing on heroku:
 >**1. Create heroku app**  
 >**2. create var in heroku setting mongoURI with your MongoDB link on Cluster**  
