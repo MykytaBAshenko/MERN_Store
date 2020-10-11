@@ -21,7 +21,7 @@ Store on MongoDB Express React and Node
 >**3. in server config dir create dev.js and write**  
 module.exports = {
   mongoURI:"mongoDBconnectLink"
-}
+}  
 >**4. npm start in / && in /client/**  
  
 ### Technologies used:
