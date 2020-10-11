@@ -10,8 +10,6 @@ import ReduxThunk from 'redux-thunk';
 import { Icon } from 'antd';
 import axios from 'axios';
 import Axios from 'axios';
-import { Carousel } from 'antd';
-import InputRange from 'react-input-range';
 import moment from "moment";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -31,7 +29,7 @@ const config = {
 const { TextArea } = Input;
 
 if (process.env.NODE_ENV === 'production') {
-  config.MAGIC_HOST=process.env.MY_HOST;
+  config.MAGIC_HOST=window.location.origin
 } else {
   config.MAGIC_HOST='http://localhost:5000';
 }
@@ -354,7 +352,7 @@ function NavBar(props) {
   let redux = useSelector(state => state.redux);
   return(
     <>
-<div className="sticky-top">
+<div className="">
   <div className="yellow-line">
     <nav className="navbar   navbar-expand-lg ">
   <a href="/" className="navbar-brand">GunstaSHOP</a>
@@ -730,7 +728,7 @@ function LandingPage(props) {
   const [Skip, setSkip] = useState(0)
   const [Page, setPage] = useState(1)
 
-  const [Limit, setLimit] = useState(5)
+  const [Limit, setLimit] = useState(10)
   const [PostSize, setPostSize] = useState()
   const [SearchTerms, setSearchTerms] = useState("")
   const [MaxPrice, setMaxPrice] = useState(0)
@@ -813,7 +811,6 @@ const onLoadMore = () => {
     limit: Limit,
     searchTerm: SearchTerms
   }
-  console.log(variables)
   getProducts(variables)
   setSkip(skip)
 }
@@ -836,7 +833,6 @@ const updateSearchTerms = (newSearchTerm) => {
 }
 
 const updateMinCost = (e) => {
-  console.log(e)
 if(allow_in1sec || e.target.value == 0) {
   allow_in1sec = 0;
   const variables = {
@@ -856,7 +852,6 @@ getProducts(variables)
 }
 
 const updateMaxCost = (e) => {
-  console.log(e)
 if(allow_in1sec || e.target.value == 0) {
   allow_in1sec = 0;
   const variables = {
@@ -983,7 +978,6 @@ getProducts(variables)
         }
         { scrollY  >100 && window.scrollY > 10 ?
         <li>
-          {console.log(scrollY)}
           <button className="main-page-btn-2" onClick={() => window.scrollTo(0, 0)}>Scroll on top</button>
         </li> : null
         }
@@ -1179,7 +1173,10 @@ function UploadProductPage(props) {
 }
 
 function My404Component(){
-  return<div>404</div>
+  return<div className="My404Component">
+    <div>404</div>
+    <a href="/">Back to home page</a>
+  </div>
 }
 
 function Footer () {
@@ -1211,19 +1208,21 @@ function Footer () {
             </li>
           </ul>
         </div>
+        <div className="PhoneFooter">
+          +3805050505050
+        </div>
       </div>
       <div className="footer-top-right">
-        <img src="https://paypalinfo.com.ua/wp-content/uploads/2019/04/paypal_2014_logo.svg_.png" />
+        <img src="https://paypalinfo.com.ua/wp-content/uploads/2019/04/paypal_2014_logo.svg_.png" alt="PayPal" />
       </div>
     </div>
-    <div className="copiright-footer">© Сreated by <a href="#">Bashenko Mykyta</a> <a href="#">Source code</a></div>
+    <div className="copiright-footer">© Сreated by <a href="https://www.linkedin.com/in/mykyta-bashenko-538043183/">Bashenko Mykyta</a> <a href="https://github.com/MykytaBAshenko/MERN_Store">Source code</a></div>
   </footer>
 }
 
 function DetailProductPage(props){
   let was_in_cart = 0;
   let redux = useSelector(state => state.redux);
-  console.log(redux)
   const dispatch = useDispatch();
   const User = useSelector(store => store.redux);
 
@@ -1238,7 +1237,6 @@ function DetailProductPage(props){
     Axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
         .then(response => {
               setProduct(response.data[0])
-              console.log(response.data[0])
           })
 
   }, [])
@@ -1353,7 +1351,6 @@ export function onSuccessBuy(data) {
 
   const request = axios.post(`${USER_SERVER}/successBuy`, data)
       .then(response => response.data);
-  console.log(request)
   return {
       type: ON_SUCCESS_BUY_USER,
       payload: request
@@ -1471,6 +1468,19 @@ return (
 
 }
 
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+}
+
 function HistoryPage(props) {
   let redux = useSelector(state => state.redux);
   
@@ -1483,13 +1493,13 @@ function HistoryPage(props) {
           <div>Name</div>
           <div>Price</div>
           <div>Date</div>
-          <div>Email</div>
+          <div>Email of seller</div>
         </div>
       {redux?.userData?.history?.map((item, index) => <div className="historyRow" key={index+item.id+item.id}>
           <div>{item.id}</div>
           <div>{item.name}</div>
-          <div>{item.price}</div>
-          <div>{Date(item.dateOfPurchase * 1000)}</div>
+          <div>{item.price} X {item.quantity} = {item.price*item.quantity} $</div>
+          <div>{(new Date(item.dateOfPurchase )).toLocaleString()}</div>
           <div>{item.writer.email}</div>
         </div>)}
         </div>
