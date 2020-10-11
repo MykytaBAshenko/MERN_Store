@@ -1,6 +1,6 @@
 # MERN_Store 
 Run on  
-[gunstashop.herokuapp.com](https://gunstashop.herokuapp.com/)
+[gunstashop.herokuapp.com](https://gunstashop.herokuapp.com/)  
 Store on MongoDB Express React and Node 
 ### What is implemented:
 >**1. login and registration**  
