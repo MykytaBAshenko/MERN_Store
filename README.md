@@ -10,12 +10,12 @@ Store on MongoDB Express React and Node
 >**5. cart contol**  
 >**6. commenting on goods**
  
-### What needfor runing on heroku:
+### What need for running on heroku:
 >**1. Create heroku app**  
 >**2. create var in heroku setting mongoURI with your MongoDB link on Cluster**  
 >**3. upload**  
 
-### What needfor runing locally:
+### What need for running locally:
 >**1. git clone**  
 >**2. npm install in / && npm install in client**  
 >**3. in server config dir create dev.js and write**  
