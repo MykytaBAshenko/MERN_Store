@@ -23,7 +23,7 @@ module.exports = {
   mongoURI:"mongoDBconnectLink"
 }
 >**4. npm start in / && in /client/**  
-
+ 
 ### Technologies used:
     Client:
     "antd": "^3.24.1",
